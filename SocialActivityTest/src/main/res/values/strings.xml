@@ -12,5 +12,6 @@
     <string name="share">Share</string>
     <string name="share_with_dialog">Share with Dialog</string>
     <string name="share_result">Share Result</string>
+    <string name="welcome">Welcome %1$s</string>
 
 </resources>

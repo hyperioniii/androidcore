@@ -17,8 +17,8 @@ import com.facebook.model.GraphUser;
 import java.util.List;
 
 public abstract class SocialNetWorkActivity extends BaseActivity {
-    private FacebookHelper facebookHelper;
-    private GooglePlusHelper googlePlusHelper;
+    protected FacebookHelper facebookHelper;
+    protected GooglePlusHelper googlePlusHelper;
     private boolean facebookEnable = true;
     private boolean googleEnable = true;
 
