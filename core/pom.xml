@@ -1,0 +1,9 @@
+<project>
+    <modelVersion>1.0</modelVersion>
+    <groupId>com.android.lib.core</groupId>
+    <artifactId>core</artifactId>
+    <version>1.0</version>
+    <packaging>jar</packaging>
+
+
+</project>

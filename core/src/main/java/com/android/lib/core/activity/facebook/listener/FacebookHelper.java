@@ -115,6 +115,11 @@ public class FacebookHelper {
         return mFacebookUser;
     }
 
+    /**
+     * get user info
+     *
+     * @param listenner
+     */
     public void getUserInfo(final IUserFaceBookListenner listenner) {
         Request requestme = Request.newMeRequest(Session.getActiveSession(),
                 new Request.GraphUserCallback() {
@@ -178,6 +183,12 @@ public class FacebookHelper {
         }
     }
 
+    /**
+     * login facebook
+     *
+     * @param readPermissions
+     * @param onLoginFacebookSuccess
+     */
     public void loginFacebook(String[] readPermissions, final String[] publishPermissions, final ILoginFacebook onLoginFacebookSuccess) {
         Log.e("", "loginFacebook 1 "+ Session.getActiveSession().toString());
         if(readPermissions!=null && readPermissions.length>0){
@@ -236,6 +247,13 @@ public class FacebookHelper {
         }
     }
 
+
+    /**
+     * @param allowLoginUI
+     * @param callback
+     * @param permissions
+     * @return
+     */
     public Session openPublishPermission(boolean allowLoginUI, Session.StatusCallback callback, List<String> permissions) {
         Session.OpenRequest openRequest = new Session.OpenRequest(context).setPermissions(permissions).setCallback(callback);
         Session session = new Session.Builder(context).build();
@@ -248,6 +266,14 @@ public class FacebookHelper {
         return null;
     }
 
+    /**
+     * open active session with add new permission
+     *
+     * @param allowLoginUI
+     * @param callback
+     * @param permissions
+     * @return
+     */
     public Session openReadPermission(boolean allowLoginUI, Session.StatusCallback callback, List<String> permissions) {
         Session.OpenRequest openRequest = new Session.OpenRequest(context).setPermissions(permissions).setCallback(callback);
         Session session = new Session.Builder(context).build();
@@ -260,6 +286,18 @@ public class FacebookHelper {
 
     }
 
+    /**
+     * share fb with login sequence
+     *
+     * @param name
+     * @param caption
+     * @param description
+     * @param place
+     * @param link
+     * @param pictureLink
+     * @param friends
+     * @param fragment
+     */
     public void shareFacebook(final String name, final String caption, final String description, final String place, final String link, final String pictureLink, final List<String> friends, final Fragment fragment) {
         String[] publishPermissions = new String[]{"publish_action"};
         actionNeedLoginSequence(null,publishPermissions,new ILoginFacebook() {
@@ -275,6 +313,12 @@ public class FacebookHelper {
         });
     }
 
+    /**
+     * Share Facebook with Dialog . It will open share fb activity if Facebook app available, else open web view
+     *
+     * @param name
+     * @param link
+     */
     public void shareFacebookWithDialog(String name, String caption, String description, String place, String link, String pictureLink, List<String> friends, Fragment fragment) {
         if (FacebookDialog.canPresentShareDialog(context.getApplicationContext(),
                 FacebookDialog.ShareDialogFeature.SHARE_DIALOG)) {
@@ -313,6 +357,14 @@ public class FacebookHelper {
         }
     }
 
+    /**
+     * @param name
+     * @param caption
+     * @param description
+     * @param place
+     * @param link
+     * @param pictureLink
+     */
     public void shareFacebookWithWebDialog(String name, String caption, String description, String place, String link, String pictureLink) {
         Bundle params = new Bundle();
         if(!StringUtil.isEmpty(name)){
@@ -368,6 +420,12 @@ public class FacebookHelper {
         feedDialog.show();
     }
 
+    /**
+     * unLike fb with login sequence
+     *
+     * @param objectId
+     * @param listenner
+     */
     public void unLike(final String objectId, final IActionLikeFacebook listenner) {
         String[] publishPermissions = new String[]{"publish_action"};
         actionNeedLoginSequence(null,publishPermissions,new ILoginFacebook() {
@@ -383,6 +441,12 @@ public class FacebookHelper {
         });
     }
 
+    /**
+     * unlike facebook
+     *
+     * @param objectId
+     * @param listenner
+     */
     public void unLikeFacebook(String objectId, final IActionLikeFacebook listenner) {
         Request request = new Request(Session.getActiveSession(), "/"
                 + objectId + "/likes", null, HttpMethod.DELETE, new Request.Callback() {
@@ -411,6 +475,13 @@ public class FacebookHelper {
         asyncTask.execute();
     }
 
+    /**
+     * postComment fb with login sequence
+     *
+     * @param objectId
+     * @param msg
+     * @param listenner
+     */
     public void postComment(final String objectId, final String msg, final IPostCommentFacebook listenner) {
         String[] publishPermissions = new String[]{"publish_action"};
         actionNeedLoginSequence(null,publishPermissions,new ILoginFacebook() {
@@ -426,6 +497,12 @@ public class FacebookHelper {
         });
     }
 
+    /**
+     * post a comment
+     *
+     * @param objectId
+     * @param msg
+     */
     public void postCommentFacebook(String objectId, String msg, final IPostCommentFacebook listenner) {
         Bundle bundle = new Bundle();
         bundle.putString("message", msg);
@@ -455,6 +532,12 @@ public class FacebookHelper {
         asyncTask.execute();
     }
 
+    /**
+     * like fb with login sequence
+     *
+     * @param objectId
+     * @param listenner
+     */
     public void like(final String objectId, final IActionLikeFacebook listenner) {
         String[] publishPermissions = new String[]{"publish_action"};
         actionNeedLoginSequence(null, publishPermissions, new ILoginFacebook() {
@@ -470,6 +553,12 @@ public class FacebookHelper {
         });
     }
 
+    /**
+     * like facebook
+     *
+     * @param objectId
+     * @param listenner
+     */
     public void likeFacebook(String objectId, final IActionLikeFacebook listenner) {
         Request request = new Request(Session.getActiveSession(), "/"
                 + objectId + "/likes", null, HttpMethod.POST, new Request.Callback() {

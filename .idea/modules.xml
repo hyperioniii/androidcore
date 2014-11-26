@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/RunSystemAndroid.iml" filepath="$PROJECT_DIR$/RunSystemAndroid.iml" />
       <module fileurl="file://$PROJECT_DIR$/SocialActivityTest/SocialActivityTest.iml" filepath="$PROJECT_DIR$/SocialActivityTest/SocialActivityTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/androidcore.iml" filepath="$PROJECT_DIR$/androidcore.iml" />
       <module fileurl="file://$PROJECT_DIR$/core/core.iml" filepath="$PROJECT_DIR$/core/core.iml" />

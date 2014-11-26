@@ -48,7 +48,7 @@ public class FacebookExampleActivity extends SocialNetWorkActivity {
         facebookHelper.loginFacebook(null,null,new ILoginFacebook() {
             @Override
             public void onLoginFacebookSuccess() {
-                getUserInfo(new IUserFaceBookListenner() {
+                facebookHelper.getUserInfo(new IUserFaceBookListenner() {
                     @Override
                     public void onGetUserInfoSuccess(GraphUser user) {
                         tvWelcome.setText(getString(R.string.welcome,user.getUsername()));
@@ -58,7 +58,7 @@ public class FacebookExampleActivity extends SocialNetWorkActivity {
 
             @Override
             public void onLoginFacebookFail(Session session, SessionState state, Exception exception) {
-
+                tvWelcome.setText("Login fail");
             }
         });
     }
