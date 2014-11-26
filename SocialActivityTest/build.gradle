@@ -1,4 +1,14 @@
-apply plugin: 'com.android.application'
+buildscript {
+    repositories {
+        mavenCentral()
+        mavenLocal()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.12.+'
+    }
+}
+apply plugin: 'android-library'
+apply plugin: 'maven-publish'
 
 android {
     compileSdkVersion 19
@@ -15,6 +25,18 @@ android {
         release {
             runProguard false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+version '1.0'
+group 'com.android.lib.core'
+android.libraryVariants.findAll { variant -> variant.name == 'Release' } each { variant ->
+    publishing {
+        publications {
+            maven(MavenPublication) {
+                artifact tasks["bundle${variant.name}"]
+            }
         }
     }
 }
