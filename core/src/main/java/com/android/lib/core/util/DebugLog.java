@@ -11,7 +11,7 @@ import android.util.Log;
  * */
 
 public class DebugLog {
-    private static boolean enable;
+    private static boolean enable = true;
 
 	static String className;
 	static String methodName;

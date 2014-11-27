@@ -11,6 +11,7 @@ import android.util.Base64;
 import android.util.Log;
 
 import com.android.lib.core.util.ArrayUtil;
+import com.android.lib.core.util.DebugLog;
 import com.android.lib.core.util.StringUtil;
 import com.facebook.FacebookException;
 import com.facebook.FacebookOperationCanceledException;
@@ -65,6 +66,7 @@ public class FacebookHelper {
 
     public void oncreate(Bundle savedInstanceState) {
         uiHelper.onCreate(savedInstanceState);
+        getKeyHash();
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -73,7 +75,7 @@ public class FacebookHelper {
                     @Override
                     public void onError(FacebookDialog.PendingCall pendingCall,
                                         Exception error, Bundle data) {
-                        Log.e("Activity",
+                        DebugLog.e(
                                 String.format("Error: %s", error.toString()));
                         if (mActionShareFacebookListener != null) {
                             mActionShareFacebookListener.onShareFail(error, data);
@@ -83,7 +85,7 @@ public class FacebookHelper {
                     @Override
                     public void onComplete(
                             FacebookDialog.PendingCall pendingCall, Bundle data) {
-                        Log.i("Activity", "Success!");
+                        DebugLog.i( "Success!");
                         if (mActionShareFacebookListener != null) {
                             String postId = FacebookDialog.getNativeDialogPostId(data);
                             mActionShareFacebookListener.onShareSuccess(postId);
@@ -126,7 +128,7 @@ public class FacebookHelper {
 
                     @Override
                     public void onCompleted(GraphUser user, Response response) {
-                        Log.e("", "user res " + response);
+                        DebugLog.e( "user res " + response);
                         mFacebookUser = user;
                         listenner.onGetUserInfoSuccess(user);
                     }
@@ -148,16 +150,16 @@ public class FacebookHelper {
                 String something = new String(Base64.encode(md.digest(), 0));
                 // String something = new
                 // String(Base64.encodeBytes(md.digest()));
-                Log.e("hash key", " pakageName "+pakageName);
-                Log.e("hash key", something);
+                DebugLog.e("hash key"+ " pakageName "+pakageName);
+                DebugLog.e("hash key"+ something);
                 return something;
             }
         } catch (PackageManager.NameNotFoundException e1) {
-            Log.e("name not found", e1.toString());
+            DebugLog.e("name not found"+ e1.toString());
         } catch (NoSuchAlgorithmException e) {
-            Log.e("no such an algorithm", e.toString());
+            DebugLog.e("no such an algorithm"+ e.toString());
         } catch (Exception e) {
-            Log.e("exception", e.toString());
+            DebugLog.e("exception"+ e.toString());
         }
         return null;
     }
@@ -190,7 +192,7 @@ public class FacebookHelper {
      * @param onLoginFacebookSuccess
      */
     public void loginFacebook(String[] readPermissions, final String[] publishPermissions, final ILoginFacebook onLoginFacebookSuccess) {
-        Log.e("", "loginFacebook 1 "+ Session.getActiveSession().toString());
+        DebugLog.e("loginFacebook 1 "+ Session.getActiveSession().toString());
         if(readPermissions!=null && readPermissions.length>0){
             openReadPermission(true, new Session.StatusCallback() {
 
@@ -235,7 +237,7 @@ public class FacebookHelper {
                 @Override
                 public void call(Session session, SessionState state,
                                  Exception exception) {
-                    Log.e("", "loginFacebook "+ session.toString());
+                    DebugLog.e( "loginFacebook "+ session.toString());
                     if (state.isOpened()) {
                         onLoginFacebookSuccess.onLoginFacebookSuccess();
                     } else if (state.isClosed()) {
@@ -457,7 +459,7 @@ public class FacebookHelper {
 
                 GraphObject graphObject = response.getGraphObject();
                 JSONObject json = graphObject.getInnerJSONObject();
-                Log.d("", "unLikeFacebook " + json.toString());
+                DebugLog.d( "unLikeFacebook " + json.toString());
                 try {
                     boolean state = json.getBoolean("FACEBOOK_NON_JSON_RESULT");
                     if (state) {
@@ -518,7 +520,7 @@ public class FacebookHelper {
                         GraphObject graphObject = response.getGraphObject();
                         JSONObject json = graphObject.getInnerJSONObject();
                         try {
-                            Log.d("",
+                            DebugLog.d(
                                     "postCommentFacebook rs " + json.toString());
                             String postId = json.getString("id");
                             listenner.onPostCommentFacebookSuccess(postId);
@@ -566,7 +568,7 @@ public class FacebookHelper {
             @Override
             public void onCompleted(Response response) {
                 // stub
-                Log.d("", "res like " + response.toString());
+                DebugLog.d( "res like " + response.toString());
                 GraphObject graphObject = response.getGraphObject();
                 if(graphObject!=null){
                     JSONObject json = graphObject.getInnerJSONObject();

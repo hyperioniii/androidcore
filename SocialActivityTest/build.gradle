@@ -1,13 +1,13 @@
 buildscript {
     repositories {
         mavenCentral()
-        mavenLocal()
+
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:0.12.+'
     }
 }
-apply plugin: 'android-library'
+apply plugin: 'com.android.application'
 apply plugin: 'maven-publish'
 
 android {
@@ -31,18 +31,18 @@ android {
 
 version '1.0'
 group 'com.android.lib.core'
-android.libraryVariants.findAll { variant -> variant.name == 'Release' } each { variant ->
-    publishing {
-        publications {
-            maven(MavenPublication) {
-                artifact tasks["bundle${variant.name}"]
-            }
-        }
-    }
-}
+//android.libraryVariants.findAll { variant -> variant.name == 'Release' } each { variant ->
+//    publishing {
+//        publications {
+//            maven(MavenPublication) {
+//                artifact tasks["bundle${variant.name}"]
+//            }
+//        }
+//    }
+//}
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile project(":core")
-    compile 'com.android.support:appcompat-v7:19.+'
+
 }

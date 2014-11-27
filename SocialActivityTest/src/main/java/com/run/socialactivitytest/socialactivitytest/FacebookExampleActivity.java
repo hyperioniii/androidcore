@@ -8,6 +8,7 @@ import com.android.lib.core.activity.SocialNetWorkActivity;
 import com.android.lib.core.activity.facebook.listener.IActionShareFacebook;
 import com.android.lib.core.activity.facebook.listener.ILoginFacebook;
 import com.android.lib.core.activity.facebook.listener.IUserFaceBookListenner;
+import com.android.lib.core.util.DebugLog;
 import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.model.GraphUser;
@@ -51,7 +52,7 @@ public class FacebookExampleActivity extends SocialNetWorkActivity {
                 facebookHelper.getUserInfo(new IUserFaceBookListenner() {
                     @Override
                     public void onGetUserInfoSuccess(GraphUser user) {
-                        tvWelcome.setText(getString(R.string.welcome,user.getUsername()));
+                        tvWelcome.setText(getString(R.string.welcome, user.getName()));
                     }
                 });
             }
@@ -67,11 +68,13 @@ public class FacebookExampleActivity extends SocialNetWorkActivity {
         facebookHelper.setActionShareFacebookListener(new IActionShareFacebook() {
             @Override
             public void onShareFail(Exception error, Bundle data) {
+                DebugLog.d("share fail");
                 tvShareDialogResult.setText("share fail");
             }
 
             @Override
             public void onShareSuccess(String postId) {
+                DebugLog.d("share success");
                 tvShareDialogResult.setText("share success, please check facebook feed to confirm");
             }
         });
