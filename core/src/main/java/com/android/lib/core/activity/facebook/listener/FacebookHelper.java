@@ -592,4 +592,12 @@ public class FacebookHelper {
         RequestAsyncTask asyncTask = new RequestAsyncTask(request);
         asyncTask.execute();
     }
+
+    public boolean isLogin() {
+        Session session = Session.getActiveSession();
+        if(session!=null && session.isOpened()){
+            return true;
+        }
+        return false;
+    }
 }

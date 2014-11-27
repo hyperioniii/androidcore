@@ -37,7 +37,14 @@ public class FacebookExampleActivity extends SocialNetWorkActivity {
 
     @Override
     protected void initData() {
-
+        if(facebookHelper.isLogin()){
+            facebookHelper.getUserInfo(new IUserFaceBookListenner() {
+                @Override
+                public void onGetUserInfoSuccess(GraphUser user) {
+                    tvWelcome.setText(getString(R.string.welcome, user.getName()));
+                }
+            });
+        }
     }
 
     @Override

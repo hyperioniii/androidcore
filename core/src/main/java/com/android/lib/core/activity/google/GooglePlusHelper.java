@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.net.Uri;
+import android.os.Bundle;
 
+import com.android.lib.core.util.DebugLog;
 import com.android.lib.core.util.StringUtil;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -19,7 +21,7 @@ import java.util.List;
 /**
  * Created by tuannx on 11/26/2014.
  */
-public class GooglePlusHelper implements GoogleApiClient.OnConnectionFailedListener {
+public class GooglePlusHelper implements GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks {
 
     private static final int RC_SIGN_IN = 99918;
     private Activity context;
@@ -35,6 +37,7 @@ public class GooglePlusHelper implements GoogleApiClient.OnConnectionFailedListe
         this.context = context;
         mGoogleApiClient = new GoogleApiClient.Builder(this.context)
                 .addApi(Plus.API)
+                .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .addScope(Plus.SCOPE_PLUS_LOGIN)
                 .build();
@@ -45,9 +48,6 @@ public class GooglePlusHelper implements GoogleApiClient.OnConnectionFailedListe
      * @param onConnectionFailedListener
      */
     public void connect(GoogleApiClient.ConnectionCallbacks connectionCallbacks, GoogleApiClient.OnConnectionFailedListener onConnectionFailedListener) {
-        if (this.connectionCallbacks != null) {
-            mGoogleApiClient.unregisterConnectionCallbacks(this.connectionCallbacks);
-        }
         this.connectionCallbacks = connectionCallbacks;
         this.onConnectionFailedListener = onConnectionFailedListener;
         mGoogleApiClient.connect();
@@ -83,6 +83,7 @@ public class GooglePlusHelper implements GoogleApiClient.OnConnectionFailedListe
             } catch (IntentSender.SendIntentException e) {
                 // The intent was canceled before it was sent.  Return to the default
                 // state and attempt to connect to get an updated ConnectionResult.
+                e.printStackTrace();
                 mIntentInProgress = false;
                 mGoogleApiClient.connect();
             }
@@ -136,6 +137,7 @@ public class GooglePlusHelper implements GoogleApiClient.OnConnectionFailedListe
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
+        DebugLog.e(" result " + connectionResult);
         resolveSignInError(connectionResult);
         if (onConnectionFailedListener != null) {
             onConnectionFailedListener.onConnectionFailed(connectionResult);
@@ -145,6 +147,24 @@ public class GooglePlusHelper implements GoogleApiClient.OnConnectionFailedListe
     public void onDestroy() {
         if (mGoogleApiClient.isConnected()) {
             mGoogleApiClient.disconnect();
+        }
+    }
+
+    public Person getCurrentPerson() {
+        return Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
+    }
+
+    @Override
+    public void onConnected(Bundle bundle) {
+        if(connectionCallbacks!=null){
+            connectionCallbacks.onConnected(bundle);
+        }
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+        if(connectionCallbacks!=null){
+            connectionCallbacks.onConnectionSuspended(i);
         }
     }
 
