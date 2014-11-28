@@ -14,7 +14,15 @@ buildscript {
 apply plugin: 'android-library'
 apply plugin: 'io.fabric'
 //apply plugin: 'maven-publish'
-
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile 'com.android.support:appcompat-v7:19.+'
+    compile 'com.google.android.gms:play-services:+'
+    compile 'com.facebook.android:facebook-android-sdk:3.20.0'
+    compile('com.twitter.sdk.android:twitter:1.0.0@aar') {
+        transitive = true;
+    }
+}
 repositories {
     jcenter()
     maven { url 'https://maven.fabric.io/repo' }
@@ -52,12 +60,4 @@ android {
 //    }
 //}
 
-dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:19.+'
-    compile 'com.google.android.gms:play-services:+'
-    compile 'com.facebook.android:facebook-android-sdk:3.20.0'
-    compile('com.twitter.sdk.android:twitter:1.0.0@aar') {
-        transitive = true;
-    }
-}
+
