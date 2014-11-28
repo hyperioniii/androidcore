@@ -14,5 +14,6 @@
     <string name="share_result">Share Result</string>
     <string name="welcome">Welcome %1$s</string>
     <string name="app_id">1496781667275899</string>
+    <string name="title_activity_twitter_example">TwitterExampleActivity</string>
 
 </resources>

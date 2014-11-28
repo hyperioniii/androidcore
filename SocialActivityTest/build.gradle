@@ -1,13 +1,20 @@
 buildscript {
     repositories {
         mavenCentral()
+        maven { url 'https://maven.fabric.io/repo' }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:0.12.+'
+        classpath 'io.fabric.tools:gradle:1.+'
     }
 }
 apply plugin: 'com.android.application'
 apply plugin: 'maven-publish'
+apply plugin: 'io.fabric'
+repositories {
+    mavenCentral()
+    maven { url 'https://maven.fabric.io/repo' }
+}
 
 android {
     compileSdkVersion 19
@@ -44,4 +51,9 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile project(":core")
 
+    compile 'com.crashlytics.sdk.android:crashlytics:2.1.0@aar'
+    compile ('com.twitter.sdk.android:twitter:1.1.0@aar'){
+        transitive = true;
+    }
+    compile 'com.android.support:appcompat-v7:19.+'
 }
