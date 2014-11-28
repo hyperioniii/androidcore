@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import com.android.lib.core.activity.BaseActivity;
 import com.android.lib.core.util.DebugLog;
-import com.crashlytics.android.Crashlytics;
 import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.Result;
@@ -22,7 +21,7 @@ public class TwitterExampleActivity extends BaseActivity {
     @Override
     protected void preOnCreate(Bundle savedInstanceState) {
         final TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
-        Fabric.with(this, new Crashlytics(), new Twitter(authConfig));
+        Fabric.with(this, new Twitter(authConfig));
     }
 
     @Override
