@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="twitter-core-1.1.0">
     <CLASSES>
-      <root url="file://$PROJECT_DIR$/SocialActivityTest/build/intermediates/exploded-aar/com.twitter.sdk.android/twitter-core/1.1.0/res" />
       <root url="jar://$PROJECT_DIR$/SocialActivityTest/build/intermediates/exploded-aar/com.twitter.sdk.android/twitter-core/1.1.0/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/SocialActivityTest/build/intermediates/exploded-aar/com.twitter.sdk.android/twitter-core/1.1.0/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
