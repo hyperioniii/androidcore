@@ -11,5 +11,6 @@ public class TwitterHelper {
 
     public TwitterHelper(Activity context) {
         this.context = context;
+        Fabric.with(this, new Twitter(authConfig));
     }
 }
